@@ -1,0 +1,6 @@
+keyword,url
+!gh,https://github.com/search?q=%s
+!ddg,https://duckduckgo.com/%s
+!so,https://stackoverflow.com/search?q=%s
+!so,https://stackoverflow.com/search?q=%s
+!tw,https://twitter.com/search?q=%s
