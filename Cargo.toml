@@ -1,0 +1,17 @@
+[package]
+name = "localbang"
+version = "0.1.0"
+edition = "2018"
+authors = ["Jakob Kruse <contact@jakob-kruse.de>"]
+license = "MIT"
+description = "Cross-browser, cross-search-engine duckduckgo-like bangs"
+homepage = "https://github.com/jakob-kruse/localbang"
+repository = "https://github.com/jakob-kruse/localbang"
+keywords = ["search", "bangs"]
+
+[dependencies]
+rocket = "0.5.0-rc.1"
+urlencoding = "2.1.0"
+serde = { version = "1.0", features = ["derive"] }
+csv = "1.1"
+
