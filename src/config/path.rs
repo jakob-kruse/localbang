@@ -6,10 +6,14 @@ use std::{
 
 fn get_args_path(args: &Vec<String>) -> Option<String> {
     let user_path = args.get(1);
-    if !user_path.is_some() {
+    if user_path.is_none() {
         return None;
     }
     let user_path = user_path.unwrap();
+    if !Path::new(user_path).exists() {
+        eprintln!("Defined path \"{}\" does not exist", user_path);
+        std::process::exit(1);
+    }
     Some(String::from(user_path))
 }
 
@@ -41,7 +45,7 @@ fn get_current_dir_path() -> Option<String> {
     }
 }
 
-pub fn find_shortcuts_path(args: &Vec<String>) -> String {
+pub fn find_shortcuts_path(args: &Vec<String>) -> Option<String> {
     let possible_paths: [Option<String>; 5] = [
         get_args_path(&args),
         Some(get_system_path()),
@@ -54,12 +58,12 @@ pub fn find_shortcuts_path(args: &Vec<String>) -> String {
         match path {
             Some(path) => {
                 if Path::new(&path).exists() {
-                    return String::from(path);
+                    return Some(String::from(path));
                 }
             }
             None => continue,
         };
     }
 
-    panic!("Could not find localbangs.csv");
+    None
 }

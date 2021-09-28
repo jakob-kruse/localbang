@@ -1,0 +1,12 @@
+[Unit]
+Description=Local DuckDuckGo-like bangs for any search engine
+Documentation=https://github.com/jakob-kruse/localbang
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/localbang
+Restart=always
+
+[Install]
+WantedBy=default.target

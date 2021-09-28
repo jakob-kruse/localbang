@@ -16,30 +16,39 @@ impl Shortcut {
 }
 
 pub struct ShortcutRegistry {
-    default: Shortcut,
+    search_engine: Shortcut,
     shortcuts: Vec<Shortcut>,
 }
 
 impl ShortcutRegistry {
     pub fn new(config: Config) -> Result<ShortcutRegistry, String> {
-        let default: Shortcut = Shortcut::new(
-            String::from("def"),
-            String::from(&config.default_search_engine),
-        );
+        let search_engine: Shortcut =
+            Shortcut::new(String::from("def"), String::from(&config.search_engine));
         let mut shortcuts: Vec<Shortcut> = Vec::new();
-        match csv::Reader::from_path(&config.shortcuts_path) {
-            Ok(mut reader) => {
-                for result in reader.deserialize() {
-                    match result {
-                        Ok(shortcut) => shortcuts.push(shortcut),
-                        Err(err) => return Err(format!("Failed to parse shortcut: {}", err)),
+
+        match &config.shortcuts_path {
+            Some(path) => match csv::Reader::from_path(&path) {
+                Ok(mut reader) => {
+                    for result in reader.deserialize() {
+                        match result {
+                            Ok(shortcut) => shortcuts.push(shortcut),
+                            Err(err) => return Err(format!("Failed to parse shortcut: {}", err)),
+                        }
                     }
                 }
+                Err(_) => {
+                    println!("Config file at \"{}\" not found.", &path)
+                }
+            },
+            None => {
+                println!("No shortcuts file specified in config. This will just be a search engine mirror.");
             }
-            Err(e) => return Err(format!("Failed to read shortcuts.csv: {}", e)),
         }
 
-        Ok(ShortcutRegistry { default, shortcuts })
+        Ok(ShortcutRegistry {
+            search_engine,
+            shortcuts,
+        })
     }
 
     pub fn match_query(&self, query: &str) -> String {
@@ -51,7 +60,7 @@ impl ShortcutRegistry {
             }
         }
 
-        let shortcut = matched_shortcut.unwrap_or(&self.default);
+        let shortcut = matched_shortcut.unwrap_or(&self.search_engine);
 
         let clean_query = query.replace(shortcut.keyword.as_str(), "");
         let clean_query = clean_query.trim();
