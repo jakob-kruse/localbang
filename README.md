@@ -13,6 +13,12 @@ Example:
 
 ## Installation
 
+### Package Manger
+
+#### AUR
+
+    yay -S localbang
+
 ### Binary release
 
 Download the latest binary release from [here](https://github.com/jakob-kruse/localbang/releases) and place it in a folder thats in $PATH e.g. /usr/local/bin.
