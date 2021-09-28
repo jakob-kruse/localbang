@@ -1,6 +1,6 @@
 [package]
 name = "localbang"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2018"
 authors = ["Jakob Kruse <contact@jakob-kruse.de>"]
 license = "MIT"
@@ -10,7 +10,7 @@ repository = "https://github.com/jakob-kruse/localbang"
 keywords = ["search", "bangs"]
 
 [dependencies]
-rocket = "0.5.0-rc.1"
+rocket = { version = "0.5.0-rc.1", features = [] }
 urlencoding = "2.1.0"
 serde = { version = "1.0", features = ["derive"] }
 csv = "1.1"
