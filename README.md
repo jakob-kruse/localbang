@@ -49,7 +49,7 @@ You can find a unit file in [localbang.service](example/localbang.service) that 
 
 ### Shortcuts file
 
-The shortcuts file defined the bangs, which are available. It is a CSV file with two rows: the `keyword` and the `url`. [Examle Shortcuts File](example/shortcuts.csv)
+The shortcuts file defined the bangs, which are available. It is a CSV file with two columns: the `keyword` and the `url`. [Example Shortcuts File](example/shortcuts.csv)
 
 #### keyword
 
