@@ -4,19 +4,6 @@ use std::{
     path::Path,
 };
 
-fn get_args_path(args: &Vec<String>) -> Option<String> {
-    let user_path = args.get(1);
-    if user_path.is_none() {
-        return None;
-    }
-    let user_path = user_path.unwrap();
-    if !Path::new(user_path).exists() {
-        eprintln!("Defined path \"{}\" does not exist", user_path);
-        std::process::exit(1);
-    }
-    Some(String::from(user_path))
-}
-
 fn get_system_path() -> String {
     String::from("/etc/localbang.csv")
 }
@@ -45,9 +32,8 @@ fn get_current_dir_path() -> Option<String> {
     }
 }
 
-pub fn find_shortcuts_path(args: &Vec<String>) -> Option<String> {
-    let possible_paths: [Option<String>; 5] = [
-        get_args_path(&args),
+pub fn find_shortcuts_path() -> Option<String> {
+    let possible_paths: [Option<String>; 4] = [
         Some(get_system_path()),
         get_config_dir_path(),
         get_home_dir_path(),

@@ -39,7 +39,7 @@ This is easier, but you have to build the binary yourself.
 The `localbang` binary will be place inside `target/release`;
 ## Usage
 
-    localbang <shortcuts_file> <search_engine>
+    localbang -s <shortcuts_file> -e "https://google.com/search?q=%s" -h "127.0.0.1" -p 8000
 
 This will start a local webserver on port 8000. Every path (e.g. http://localhost:8000/search?q=foo) will be redirected to the search engine (with the query "foo") provided as a second argument (defaults to google search).
 

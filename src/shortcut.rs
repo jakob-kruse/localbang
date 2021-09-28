@@ -1,8 +1,5 @@
 use serde::Deserialize;
 use urlencoding::encode;
-
-use crate::config::Config;
-
 #[derive(Debug, Deserialize)]
 pub struct Shortcut {
     keyword: String,
@@ -21,29 +18,25 @@ pub struct ShortcutRegistry {
 }
 
 impl ShortcutRegistry {
-    pub fn new(config: Config) -> Result<ShortcutRegistry, String> {
+    pub fn new(shortcuts_path: String, search_engine: String) -> Result<ShortcutRegistry, String> {
         let search_engine: Shortcut =
-            Shortcut::new(String::from("def"), String::from(&config.search_engine));
+            Shortcut::new(String::from("def"), String::from(search_engine));
         let mut shortcuts: Vec<Shortcut> = Vec::new();
 
-        match &config.shortcuts_path {
-            Some(path) => match csv::Reader::from_path(&path) {
-                Ok(mut reader) => {
-                    for result in reader.deserialize() {
-                        match result {
-                            Ok(shortcut) => shortcuts.push(shortcut),
-                            Err(err) => return Err(format!("Failed to parse shortcut: {}", err)),
-                        }
+        match csv::Reader::from_path(&shortcuts_path) {
+            Ok(mut reader) => {
+                for result in reader.deserialize() {
+                    match result {
+                        Ok(shortcut) => shortcuts.push(shortcut),
+                        Err(err) => return Err(format!("Failed to parse shortcut: {}", err)),
                     }
                 }
-                Err(_) => {
-                    println!("Config file at \"{}\" not found.", &path)
-                }
-            },
-            None => {
-                println!("No shortcuts file specified in config. This will just be a search engine mirror.");
+            }
+            Err(_) => {
+                println!("Config file at \"{}\" not found.", &shortcuts_path)
             }
         }
+        println!("Loaded shortcuts from {}", &shortcuts_path);
 
         Ok(ShortcutRegistry {
             search_engine,
