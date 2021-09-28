@@ -7,7 +7,7 @@ extern crate rocket;
 mod config;
 mod shortcut;
 
-#[get("/<q>")]
+#[get("/search?<q>")]
 fn query(q: &str, shortcuts: &State<shortcut::ShortcutRegistry>) -> Redirect {
     let redirect_url = shortcuts.match_query(q);
 

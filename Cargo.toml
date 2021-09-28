@@ -1,10 +1,10 @@
 [package]
 name = "localbang"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2018"
 authors = ["Jakob Kruse <contact@jakob-kruse.de>"]
 license = "MIT"
-description = "Cross-browser, cross-search-engine duckduckgo-like bangs"
+description = "Cross-platform, cross-browser, cross-search-engine duckduckgo-like bangs"
 homepage = "https://github.com/jakob-kruse/localbang"
 repository = "https://github.com/jakob-kruse/localbang"
 keywords = ["search", "bangs"]

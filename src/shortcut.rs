@@ -65,8 +65,8 @@ impl ShortcutRegistry {
         let clean_query = query.replace(shortcut.keyword.as_str(), "");
         let clean_query = clean_query.trim();
 
-        return shortcut
+        shortcut
             .url
-            .replace("%s", &encode(clean_query).into_owned());
+            .replace("%s", &encode(clean_query).into_owned())
     }
 }
